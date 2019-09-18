@@ -1,0 +1,7 @@
+*.pyc
+*.db
+*.ipynb
+data
+/dist/
+/*.egg-info
+bin
