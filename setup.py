@@ -1,6 +1,30 @@
+# encoding:utf-8
 from setuptools import setup
-from version import version, name, authors, email, short_desc
+#from version import version, name, authors, email, short_desc
 
+###
+# Versioning
+###
+from datetime import date
+
+name = "allabolag"
+
+short_version = "0.1.1"
+long_version = short_version
+
+short_desc = """\
+Scrape data from allabolag.se.\
+"""
+authors = u"Jens Finnäs, Newsworthy"
+year = date.today().year
+copyright = "%s, %s" % (year, authors)
+email = "jens.finnas@gmail.com"
+
+version = long_version
+
+###
+# Setup
+###
 
 def readme():
     """Import README for use as long_description."""
