@@ -5,3 +5,5 @@ data
 /dist/
 /*.egg-info
 bin
+build
+env

@@ -53,7 +53,7 @@ To deploy a new version to PyPi:
 1. Update Changelog below.
 2. Update `version.py`
 3. Build: `python3 setup.py sdist bdist_wheel`
-4. Upload: `python3 -m twine upload dist/newsworthycharts-X.Y.X*`
+4. Upload: `python3 -m twine upload dist/allabolag-X.Y.X*`
 
 ...assuming you have Twine installed (`pip install twine`) and configured.
 
