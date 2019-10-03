@@ -137,7 +137,7 @@ class Company():
 
                     table_data = _prefix_keys(table_data, "Nycketal")
                     data.update(table_data)
-                self._accounts_data = data
+            self._accounts_data = data
         return self._accounts_data
 
     def _clean_data(self, dict_):
