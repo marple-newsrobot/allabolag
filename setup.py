@@ -1,6 +1,5 @@
 # encoding:utf-8
 from setuptools import setup
-#from version import version, name, authors, email, short_desc
 
 ###
 # Versioning
@@ -9,7 +8,7 @@ from datetime import date
 
 name = "allabolag"
 
-short_version = "0.1.2"
+short_version = "0.1.3"
 long_version = short_version
 
 short_desc = """\

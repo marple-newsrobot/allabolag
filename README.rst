@@ -60,4 +60,10 @@ To deploy a new version to PyPi:
 Changelog
 ---------
 
-- 0.1.0 First version
+- 0.1.3
+
+  - Bug fixes
+
+- 0.1.0
+
+  - First version
