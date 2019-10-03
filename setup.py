@@ -32,7 +32,7 @@ def readme():
         return f.read()
 
 
-repo = "https://github.com/jplusplus/allabolag"
+repo = "https://github.com/marple-newsrobot/allabolag"
 
 setup(
     name=name,
