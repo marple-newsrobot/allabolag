@@ -29,7 +29,7 @@ def iter_liquidated_companies(until):
                               .attrs[":search-result-default"])
 
         if len(data) == 0:
-            raise Exception(f"No results on {url}")
+            raise Exception(u"No results on {}".format(url))
 
         for item in data:
             item_data = _parse_liquidated_company_item(item)
