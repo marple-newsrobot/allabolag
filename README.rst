@@ -60,6 +60,10 @@ To deploy a new version to PyPi:
 Changelog
 ---------
 
+- 0.1.6
+
+  - Fixes bug when company has remark about Svensk Handels Varningslistan
+
 - 0.1.5
 
   - Make Python 2.7 compatible.

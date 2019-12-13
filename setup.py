@@ -8,7 +8,7 @@ from datetime import date
 
 name = "allabolag"
 
-short_version = "0.1.5"
+short_version = "0.1.6"
 long_version = short_version
 
 short_desc = """\
