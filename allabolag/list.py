@@ -25,7 +25,7 @@ def iter_list(base, limit=None, start_from=1):
         )
 
         if len(data) == 0:
-            raise Exception(u"No results on {}".format(url))
+            has_more_results = False
 
         for item in data:
             if limit and limit(item):

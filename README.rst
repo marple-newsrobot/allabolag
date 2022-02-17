@@ -62,6 +62,7 @@ Changelog
 
 - next
   - Remove debug output
+  - Don't crash when we reach the end of a list
 
 - 0.4.0
   - Add option to start from page N
