@@ -60,7 +60,7 @@ To deploy a new version to PyPi:
 Changelog
 ---------
 
-- next
+- 0.4.1
   - Remove debug output
   - Don't crash when we reach the end of a list
 
