@@ -96,7 +96,8 @@ class Company():
             # "Verksamhet & ändamål" följer annan struktur (h3 + initliggande tagg)
             verksamhet_header = s.find(text=re.compile(u"^.*Verksamhet & ändamål.*"))
             if verksamhet_header:
-                data[u"Verksamhet & ändamål"] = verksamhet_header.parent.find_next_sibling().text.strip()
+                data[u"Verksamhet & ändamål"] = verksamhet_header \
+                    .parent.find_next_sibling().text.strip()
 
             # SNI-koden ligger som kod (dt) + etikett (dd)
             sni_dl = s.select_one(".accordion-body.sni")
