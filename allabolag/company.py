@@ -5,6 +5,7 @@ import re
 from allabolag.utils import _dl_to_dict, _table_to_dict, _prefix_keys
 from allabolag.parsers import PARSERS
 
+
 class Company():
     """Represents a single company.
 
@@ -15,7 +16,7 @@ class Company():
     """
     def __init__(self, company_code):
         self.company_code = company_code
-        self.url = "https://www.allabolag.se/{}".format(company_code.replace("-",""))
+        self.url = f"https://www.allabolag.se/{company_code.replace('-', '')}"
         self._data = {}
         self._overview_data = {}
         self._activity_data = {}
@@ -35,7 +36,6 @@ class Company():
     @property
     def data(self):
         return self._clean_data(self.raw_data)
-
 
     @property
     def overview_data(self):
@@ -63,8 +63,9 @@ class Company():
             # Parse "Nyckeltal"
             account_fig_summary_soup = s.select_one(".company-account-figures")
             if account_fig_summary_soup is not None:
-                data["account_figures_year"] = account_fig_summary_soup.select_one("h2").text.strip()
-                account_fig_table =  account_fig_summary_soup.select_one("table")
+                data["account_figures_year"] = account_fig_summary_soup \
+                    .select_one("h2").text.strip()
+                account_fig_table = account_fig_summary_soup.select_one("table")
                 keys = [x.text.strip() for x in account_fig_table.select("th")]
                 values = [x.text.strip() for x in account_fig_table.select("td")]
                 account_figures = dict(zip(keys, values))
@@ -112,15 +113,16 @@ class Company():
             data = {}
             s = self._get_soup("bokslut")
             for table in s.select("table"):
-                #print _table_to_dict(table)
-                table_caption = table.select_one("thead th.company-table__pager-button-cell").text.strip()
+                table_caption = table \
+                    .select_one("thead th.company-table__pager-button-cell").text.strip()
                 if table_caption != u"Nyckeltal":
                     table_data = _table_to_dict(table)
                     table_data = _prefix_keys(table_data, table_caption)
                     data.update(table_data)
                 else:
                     # Nyckeltal behöver egen parsing
-                    # Hack Nyckeltalstabellen saknar år, därför tar vi dem från föregående år
+                    # Hack Nyckeltalstabellen saknar år,
+                    # därför tar vi dem från föregående år
                     years = [x[0] for x in list(table_data.values())[0]]
 
                     table_data = {}
