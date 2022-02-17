@@ -60,6 +60,10 @@ To deploy a new version to PyPi:
 Changelog
 ---------
 
+- 0.4.0
+  - Add option to start from page N
+  - Add custom exception for missing company
+
 - 0.3.1
   - Add cache for company data
 
