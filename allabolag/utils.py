@@ -11,6 +11,7 @@ def _dl_to_dict(dl):
         d[key] = value
     return d
 
+
 def _prefix_keys(old_dict, prefix):
     """Adds a prefix to all keys in a dict"""
     new_dict = {}
@@ -18,6 +19,7 @@ def _prefix_keys(old_dict, prefix):
         new_key = u"{} - {}".format(prefix, key)
         new_dict[new_key] = old_dict[key]
     return new_dict
+
 
 def _table_to_dict(table):
     data = {}

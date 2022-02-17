@@ -1,8 +1,6 @@
-import requests
-from bs4 import BeautifulSoup
 from datetime import datetime
 from copy import deepcopy
-import json
+from allabolag.list import iter_list
 
 
 def iter_liquidated_companies(until):
@@ -14,32 +12,12 @@ def iter_liquidated_companies(until):
     """
     if not isinstance(until, datetime):
         until = datetime.strptime(until, "%Y-%m-%d")
-    page = 1
-    has_more_results = True
 
-    while has_more_results:
-        LIST_BASE = "https://www.allabolag.se/lista"
-        url = f"{LIST_BASE}/konkurs-inledd/6/?page={page}"
-        print("/GET {}".format(url))
-        r = requests.get(url)
-        r.raise_for_status()
-        soup = BeautifulSoup(r.content, "html.parser")
-        data = json.loads(
-            soup.select_one(".page.search-results search")
-            .attrs[":search-result-default"]
-        )
-
-        if len(data) == 0:
-            raise Exception(u"No results on {}".format(url))
-
-        for item in data:
-            item_data = _parse_liquidated_company_item(item)
-            if item_data["Konkurs inledd"] < until:
-                has_more_results = False
-            else:
-                yield item_data
-
-        page += 1
+    for item in iter_list(
+        "konkurs-inledd/6",
+        lambda x: _parse_liquidated_company_item(x)["Konkurs inledd"] < until,
+    ):
+        yield _parse_liquidated_company_item(item)
 
 
 def _parse_liquidated_company_item(item_dict):
