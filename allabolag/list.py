@@ -3,13 +3,13 @@ from bs4 import BeautifulSoup
 import json
 
 
-def iter_list(base, limit=None):
+def iter_list(base, limit=None, start_from=1):
     """Iterate a search result list
 
     :param base: list url fragment
     :param limit: a function to limit results, eg by date
     """
-    page = 1
+    page = start_from or 1
     has_more_results = True
 
     list_url = f"https://www.allabolag.se/{base}/"
