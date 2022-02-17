@@ -60,6 +60,9 @@ To deploy a new version to PyPi:
 Changelog
 ---------
 
+- 0.2.1
+  - Make `iter_list()` more generic, by accepting the while url fragment
+
 - 0.2.0
   - Add `iter_list()` function
 
