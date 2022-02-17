@@ -14,7 +14,7 @@ def iter_liquidated_companies(until):
         until = datetime.strptime(until, "%Y-%m-%d")
 
     for item in iter_list(
-        "konkurs-inledd/6",
+        "lista/konkurs-inledd/6",
         lambda x: _parse_liquidated_company_item(x)["Konkurs inledd"] < until,
     ):
         yield _parse_liquidated_company_item(item)

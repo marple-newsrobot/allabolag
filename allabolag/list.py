@@ -12,9 +12,9 @@ def iter_list(base, limit=None):
     page = 1
     has_more_results = True
 
+    list_url = f"https://www.allabolag.se/{base}/"
     while has_more_results:
-        LIST_BASE = "https://www.allabolag.se/lista"
-        url = f"{LIST_BASE}/{base}/?page={page}"
+        url = f"{list_url}?page={page}"
         print("/GET {}".format(url))
         r = requests.get(url)
         r.raise_for_status()
