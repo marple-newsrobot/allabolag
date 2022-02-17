@@ -1,4 +1,5 @@
-from allabolag import Company
+from allabolag import Company, NoSuchCompany
+import pytest
 
 
 def test_company():
@@ -6,3 +7,9 @@ def test_company():
     data = c.data
     assert(isinstance(data, dict))
     assert data["Översikt - Namn"] == "Journalism Robotics Stockholm AB"
+
+
+def test_invalid_company():
+    with pytest.raises(NoSuchCompany):
+        c = Company("559071-xxxx")
+        c.data

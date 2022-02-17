@@ -6,6 +6,11 @@ from allabolag.utils import _dl_to_dict, _table_to_dict, _prefix_keys
 from allabolag.parsers import PARSERS
 
 
+class NoSuchCompany(Exception):
+    """Raised when trying to acces a copmany that doesn't exist"""
+    pass
+
+
 class Company():
     """Represents a single company.
 
@@ -171,6 +176,10 @@ class Company():
             url += "/{}".format(endpoint)
         print("/GET {}".format(url))
         r = requests.get(url)
+        print(r.text)
+        if r.status_code == 404 and "Hittade inte företaget" in r.text:
+            raise(NoSuchCompany)
+        # forward any other expection
         r.raise_for_status()
         soup = BeautifulSoup(r.content, "html.parser")
         self._cache[cache_key] = soup
