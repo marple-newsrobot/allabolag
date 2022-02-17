@@ -21,6 +21,7 @@ class Company():
         self._overview_data = {}
         self._activity_data = {}
         self._accounts_data = {}
+        self._cache = {}
 
     @property
     def raw_data(self):
@@ -45,7 +46,6 @@ class Company():
             s = self._get_soup()
             data = {
                 "Namn": s.select_one("h1").text.strip(),
-
             }
 
             # Parse "Information" box
@@ -161,10 +161,17 @@ class Company():
         return dict_
 
     def _get_soup(self, endpoint=None):
+        cache_key = endpoint
+        if not cache_key:
+            cache_key = "INDEX"
+        if cache_key in self._cache:
+            return self._cache[cache_key]
         url = self.url
         if endpoint:
             url += "/{}".format(endpoint)
         print("/GET {}".format(url))
         r = requests.get(url)
         r.raise_for_status()
-        return BeautifulSoup(r.content, "html.parser")
+        soup = BeautifulSoup(r.content, "html.parser")
+        self._cache[cache_key] = soup
+        return soup
