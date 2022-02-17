@@ -7,3 +7,4 @@ data
 bin
 build
 env
+__pycache__
