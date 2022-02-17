@@ -60,6 +60,9 @@ To deploy a new version to PyPi:
 Changelog
 ---------
 
+- next
+  - Remove debug output
+
 - 0.4.0
   - Add option to start from page N
   - Add custom exception for missing company
