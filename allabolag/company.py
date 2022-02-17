@@ -177,7 +177,6 @@ class Company():
             url += "/{}".format(endpoint)
         print("/GET {}".format(url))
         r = requests.get(url)
-        print(r.text)
         if r.status_code == 404 and "Hittade inte företaget" in r.text:
             raise(NoSuchCompany)
         # forward any other expection
