@@ -1,11 +1,8 @@
-# encoding:utf-8
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 from copy import deepcopy
-import re
 import json
-from allabolag.utils import _dl_to_dict
 
 
 def iter_liquidated_companies(until):
@@ -21,13 +18,16 @@ def iter_liquidated_companies(until):
     has_more_results = True
 
     while has_more_results:
-        url = "https://www.allabolag.se/lista/konkurs-inledd/6/?page={}".format(page)
+        LIST_BASE = "https://www.allabolag.se/lista"
+        url = f"{LIST_BASE}/konkurs-inledd/6/?page={page}"
         print("/GET {}".format(url))
         r = requests.get(url)
         r.raise_for_status()
         soup = BeautifulSoup(r.content, "html.parser")
-        data = json.loads(soup.select_one(".page.search-results search")\
-                              .attrs[":search-result-default"])
+        data = json.loads(
+            soup.select_one(".page.search-results search")
+            .attrs[":search-result-default"]
+        )
 
         if len(data) == 0:
             raise Exception(u"No results on {}".format(url))
@@ -41,6 +41,7 @@ def iter_liquidated_companies(until):
 
         page += 1
 
+
 def _parse_liquidated_company_item(item_dict):
     item = deepcopy(item_dict)
 
@@ -49,7 +50,7 @@ def _parse_liquidated_company_item(item_dict):
     item["Org.nummer"] = item_dict["orgnr"]
 
     for remark in item_dict["remarks"]:
-        key = remark["remarkDescription"] # ie. Konkurs inledd
+        key = remark["remarkDescription"]  # ie. Konkurs inledd
         if remark["remarkDate"] is not None:
             item[key] = datetime.strptime(remark["remarkDate"], "%Y-%m-%d")
         # TODO: Handle other remarks such as:
