@@ -51,7 +51,7 @@ Deployment
 To deploy a new version to PyPi:
 
 1. Update Changelog below.
-2. Update `version.py`
+2. Update version in `setup.py`
 3. Build: `python3 setup.py sdist bdist_wheel`
 4. Upload: `python3 -m twine upload dist/allabolag-X.Y.X*`
 
@@ -59,6 +59,22 @@ To deploy a new version to PyPi:
 
 Changelog
 ---------
+
+- 0.1.7
+
+  - Bug fix: Add encoding for Python 2.7 
+
+- 0.1.6
+
+  - Fixes bug when company has remark about Svensk Handels Varningslistan
+
+- 0.1.5
+
+  - Make Python 2.7 compatible.
+
+- 0.1.4
+
+  - Updating _iter_liquidate_companies to handle rebuilt site.
 
 - 0.1.3
 
