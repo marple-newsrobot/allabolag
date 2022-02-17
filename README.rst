@@ -60,6 +60,9 @@ To deploy a new version to PyPi:
 Changelog
 ---------
 
+- 0.3.1
+  - Add cache for company data
+
 - 0.3.0
   - Add `Company.remarks` (a list of remarks, e.g. “Konkurs”)
 
