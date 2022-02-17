@@ -60,6 +60,9 @@ To deploy a new version to PyPi:
 Changelog
 ---------
 
+- 0.2.0
+  - Add `iter_list()` function
+
 - 0.1.7
 
   - Bug fix: Add encoding for Python 2.7 
