@@ -107,6 +107,16 @@ class Company():
         return self._activity_data
 
     @property
+    def remarks(self):
+        """Get a list of remarks"""
+        s = self._get_soup()
+        ul = s.find("ul", {"class": "remarks"})
+        if not ul:
+            return []
+        lis = ul.find_all("li")
+        return [li.text.strip() for li in lis]
+
+    @property
     def accounts_data(self):
         """Collect data from "Bokslut & nyckeltal" """
         if self._accounts_data == {}:
