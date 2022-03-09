@@ -60,6 +60,9 @@ To deploy a new version to PyPi:
 Changelog
 ---------
 
+- 0.5.1
+  - Fix return type for `Company.liquidation`
+
 - 0.5.0
   - Add `Company.liquidation`
 

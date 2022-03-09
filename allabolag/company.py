@@ -127,7 +127,7 @@ class Company():
         """Check if company is liquidated"""
         konkurs = [r for r in self.remarks if r.startswith("Konkurs")]
         likvidation = [r for r in self.remarks if r.startswith("Likvidation")]
-        return len(konkurs) or len(likvidation)
+        return True if len(konkurs) or len(likvidation) else False
 
     @property
     def accounts_data(self):
