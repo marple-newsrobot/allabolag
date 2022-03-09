@@ -123,6 +123,13 @@ class Company():
         return [li.text.strip() for li in lis]
 
     @property
+    def liquidated(self):
+        """Check if company is liquidated"""
+        konkurs = [r for r in self.remarks if r.startswith("Konkurs")]
+        likvidation = [r for r in self.remarks if r.startswith("Likvidation")]
+        return len(konkurs) or len(likvidation)
+
+    @property
     def accounts_data(self):
         """Collect data from "Bokslut & nyckeltal" """
         if self._accounts_data == {}:
