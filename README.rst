@@ -60,6 +60,9 @@ To deploy a new version to PyPi:
 Changelog
 ---------
 
+- 0.5.0
+  - Add `Company.liquidation`
+
 - 0.4.1
   - Remove debug output
   - Don't crash when we reach the end of a list
