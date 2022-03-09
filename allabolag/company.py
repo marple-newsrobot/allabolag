@@ -7,7 +7,7 @@ from allabolag.parsers import PARSERS
 
 
 class NoSuchCompany(Exception):
-    """Raised when trying to acces a copmany that doesn't exist"""
+    """Raised when trying to access a copmany that doesn't exist"""
     pass
 
 
