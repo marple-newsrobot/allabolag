@@ -27,7 +27,7 @@ def _table_to_dict(table):
     for tr in table.select("tbody tr"):
         try:
             key = tr.select_one("th").text.strip()
-        except:
+        except Exception:
             continue
         values = [x.text.strip() for x in tr.select("td.data-pager__page")]
         data[key] = list(zip(years, values))

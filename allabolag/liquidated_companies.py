@@ -32,6 +32,8 @@ def _parse_liquidated_company_item(item_dict):
         if remark["remarkDate"] is not None:
             item[key] = datetime.strptime(remark["remarkDate"], "%Y-%m-%d")
         # TODO: Handle other remarks such as:
-        #  {'remarkCode': 'SHV', 'remarkDescription': 'Svensk Handel Varningslistan med produktnamn: registersök.', 'remarkDate': None}
+        # 'remarkCode': 'SHV',
+        # 'remarkDescription': 'Svensk Handel Varningslistan med produktnamn: registersök.',
+        # 'remarkDate': None,
 
     return item
