@@ -1,12 +1,12 @@
-# encoding: utf-8
 from datetime import datetime
+
 
 def value(s):
     """Parse float
     """
     if s is None or s == "-" or s == "":
         return None
-    s = s.replace(",",".").replace(" ","").replace(" ","")
+    s = s.replace(",", ".").replace(" ", "").replace(" ", "")
     if s.endswith("%"):
         s = s.replace("%", "")
         return float(s) / 100.0
@@ -15,28 +15,33 @@ def value(s):
 
     raise Exception(u"Unable to parse value from '{}'".format(s))
 
+
 def date(s):
     """Parse datetime"""
     return datetime.strptime(s, "%Y-%m-%d")
 
-def date_value(l):
+
+def date_value(list_):
     """Parse [YEAR, VALUE] pair.
 
     date_value("2018-02", 25%) => [datetime(2018,2,1), 0.25]
     """
     return [
-        #datetime.strptime(l[0], "%Y-%m"),
-        l[0],
-        value(l[1])
+        # datetime.strptime(l[0], "%Y-%m"),
+        list_[0],
+        value(list_[1]),
     ]
 
+
 def date_value_list(ll):
-    return [date_value(l) for l in ll]
+    return [date_value(list_) for list_ in ll]
+
 
 def text(s):
     if s.endswith(u"Läs mer"):
         s = s.replace(u"Läs mer", "").strip()
     return s
+
 
 # Define parser for specific data fields
 PARSERS = {
