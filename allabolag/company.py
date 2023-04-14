@@ -1,4 +1,5 @@
 # encoding: utf-8
+import time
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -190,4 +191,5 @@ class Company():
         r.raise_for_status()
         soup = BeautifulSoup(r.content, "html.parser")
         self._cache[cache_key] = soup
+        time.sleep(2)
         return soup
