@@ -60,6 +60,11 @@ To deploy a new version to PyPi:
 Changelog
 ---------
 
+- 0.6.0
+  - Add headers to request
+  - Minor dependency updates
+  - Use logger for debugging
+
 - 0.5.1
   - Fix return type for `Company.liquidation`
 
