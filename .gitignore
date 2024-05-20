@@ -8,3 +8,4 @@ bin
 build
 env
 __pycache__
+venv
