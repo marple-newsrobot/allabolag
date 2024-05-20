@@ -1,6 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import os
+import logging
+
+logging.basicConfig(level=os.environ.get("LOGLEVEL", "WARNING"))
+logger = logging.getLogger(__name__)
 
 
 def iter_list(base, limit=None, start_from=1):
@@ -15,8 +20,11 @@ def iter_list(base, limit=None, start_from=1):
     list_url = f"https://www.allabolag.se/{base}/"
     while has_more_results:
         url = f"{list_url}?page={page}"
-        print("/GET {}".format(url))
-        r = requests.get(url)
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
+        }
+        logger.info("/GET {}".format(url))
+        r = requests.get(url, headers)
         r.raise_for_status()
         soup = BeautifulSoup(r.content, "html.parser")
         data = json.loads(

@@ -1,9 +1,13 @@
-# encoding: utf-8
 import requests
 from bs4 import BeautifulSoup
 import re
 from allabolag.utils import _dl_to_dict, _table_to_dict, _prefix_keys
 from allabolag.parsers import PARSERS
+import os
+import logging
+
+logging.basicConfig(level=os.environ.get("LOGLEVEL", "WARNING"))
+logger = logging.getLogger(__name__)
 
 
 class NoSuchCompany(Exception):
@@ -182,10 +186,13 @@ class Company():
         url = self.url
         if endpoint:
             url += "/{}".format(endpoint)
-        print("/GET {}".format(url))
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
+        }
+        logger.info("/GET {}".format(url))
         r = requests.get(url)
         if r.status_code == 404 and "Hittade inte företaget" in r.text:
-            raise(NoSuchCompany)
+            raise NoSuchCompany(f"Company {self.company_code} not found")
         # forward any other expection
         r.raise_for_status()
         soup = BeautifulSoup(r.content, "html.parser")
