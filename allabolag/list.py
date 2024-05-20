@@ -24,7 +24,7 @@ def iter_list(base, limit=None, start_from=1):
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
         }
         logger.info("/GET {}".format(url))
-        r = requests.get(url, headers)
+        r = requests.get(url, headers=headers)
         r.raise_for_status()
         soup = BeautifulSoup(r.content, "html.parser")
         data = json.loads(

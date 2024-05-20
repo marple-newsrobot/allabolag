@@ -60,6 +60,9 @@ To deploy a new version to PyPi:
 Changelog
 ---------
 
+- 0.6.1
+  - Bug fix: Actually use header in requests.
+
 - 0.6.0
   - Add headers to request
   - Minor dependency updates

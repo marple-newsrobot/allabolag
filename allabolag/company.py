@@ -186,12 +186,14 @@ class Company():
         url = self.url
         if endpoint:
             url += "/{}".format(endpoint)
+        # TODO: Allow user to set custom header
+        # As of May 2024 querying without a head does not work
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
         }
         logger.info("/GET {}".format(url))
-        r = requests.get(url)
-        if r.status_code == 404 and "Hittade inte företaget" in r.text:
+        r = requests.get(url, headers=headers)
+        if r.status_code == 404:
             raise NoSuchCompany(f"Company {self.company_code} not found")
         # forward any other expection
         r.raise_for_status()
