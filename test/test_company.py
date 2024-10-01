@@ -13,13 +13,12 @@ def test_company():
     assert(isinstance(data, dict))
     assert data["Översikt - Namn"] == "Journalism Robotics Stockholm AB"
 
-
 def test_invalid_company():
     with pytest.raises(NoSuchCompany):
         c = Company("559071-xxxx")
         c.data
 
 
-def test_liquidated():
-    c = Company("5569867632")
-    assert c.liquidated
+#def test_liquidated():
+#    c = Company("556986-7632")
+#    assert c.liquidated

@@ -69,7 +69,7 @@ class RequestsRequestClient(BaseRequestClient):
 
 
 
-class RotatingIPRequestClient(BaseRequestClient):
+class AWSGatewayRequestClient(BaseRequestClient):
     """
     A request client that uses rotating IP addresses through AWS API Gateway.
 
@@ -101,7 +101,7 @@ class RotatingIPRequestClient(BaseRequestClient):
 
     def __init__(self, aws_regions: list[str] = ["eu-north-1"], extra_headers: dict = {}):
         """
-        Initialize the RotatingIPRequestClient.        
+        Initialize the AWSGatewayRequestClient.        
 
         Args:
             aws_regions (list[str]): List of AWS regions to use for IP rotation.

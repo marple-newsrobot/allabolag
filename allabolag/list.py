@@ -1,4 +1,4 @@
-import requests
+from allabolag.request_client import RequestsRequestClient
 from bs4 import BeautifulSoup
 import json
 import os
@@ -7,8 +7,9 @@ import logging
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "WARNING"))
 logger = logging.getLogger(__name__)
 
+default_request_client = RequestsRequestClient()
 
-def iter_list(base, limit=None, start_from=1):
+def iter_list(base, limit=None, start_from=1, request_client=default_request_client):
     """Iterate a search result list
 
     :param base: list url fragment
@@ -20,12 +21,8 @@ def iter_list(base, limit=None, start_from=1):
     list_url = f"https://www.allabolag.se/{base}/"
     while has_more_results:
         url = f"{list_url}?page={page}"
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
-        }
         logger.info("/GET {}".format(url))
-        r = requests.get(url, headers=headers)
-        r.raise_for_status()
+        r = default_request_client.get(url)
         soup = BeautifulSoup(r.content, "html.parser")
         data = json.loads(
             soup.select_one(".page.search-results search")

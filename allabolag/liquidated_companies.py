@@ -1,9 +1,9 @@
 from datetime import datetime
 from copy import deepcopy
 from allabolag.list import iter_list
+from allabolag.request_client import RequestsRequestClient
 
-
-def iter_liquidated_companies(until):
+def iter_liquidated_companies(until, request_client=RequestsRequestClient()):
     """Iterate the paginated list of liquidated companies ("konkurs inledd").
     The website does not allow us to fetch a given date (range). We may only
     collect the latest records.
@@ -16,6 +16,7 @@ def iter_liquidated_companies(until):
     for item in iter_list(
         "lista/konkurs-inledd/6",
         lambda x: _parse_liquidated_company_item(x)["Konkurs inledd"] < until,
+        request_client=request_client
     ):
         yield _parse_liquidated_company_item(item)
 
