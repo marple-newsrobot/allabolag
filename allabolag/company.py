@@ -1,8 +1,9 @@
-import requests
+
 from bs4 import BeautifulSoup
 import re
 from allabolag.utils import _dl_to_dict, _table_to_dict, _prefix_keys
 from allabolag.parsers import PARSERS
+from allabolag.request_client import RequestsRequestClient, RequestError
 import os
 import logging
 
@@ -14,6 +15,7 @@ class NoSuchCompany(Exception):
     """Raised when trying to access a copmany that doesn't exist"""
     pass
 
+default_request_client = RequestsRequestClient
 
 class Company():
     """Represents a single company.
@@ -23,8 +25,9 @@ class Company():
         print(c.data) # get all cleaned data
         print(c.raw_data) # get all uncleaned data
     """
-    def __init__(self, company_code):
+    def __init__(self, company_code, RequestClient=RequestsRequestClient, request_client_kwargs={}):
         self.company_code = company_code
+        self.request_client = RequestClient(**request_client_kwargs)
         self.url = f"https://www.allabolag.se/{company_code.replace('-', '')}"
         self._data = {}
         self._overview_data = {}
@@ -186,17 +189,13 @@ class Company():
         url = self.url
         if endpoint:
             url += "/{}".format(endpoint)
-        # TODO: Allow user to set custom header
-        # As of May 2024 querying without a head does not work
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
-        }
         logger.info("/GET {}".format(url))
-        r = requests.get(url, headers=headers)
-        if r.status_code == 404:
-            raise NoSuchCompany(f"Company {self.company_code} not found")
-        # forward any other expection
-        r.raise_for_status()
+        try:
+            r = self.request_client.get(url)
+        except RequestError as e:
+            if e.status_code == 404:
+                raise NoSuchCompany(f"Company {self.company_code} not found")
+            raise e
         soup = BeautifulSoup(r.content, "html.parser")
         self._cache[cache_key] = soup
         return soup
