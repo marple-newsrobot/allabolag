@@ -35,6 +35,16 @@ And you can iterate the list of recent liquidations.
   for company in iter_liquidated_companies(until="2019-06-01"):
     print(company)
 
+Use AWS API Gateway to rotate IP addresses
+
+.. code-block:: python3
+
+  from allabolag.request_client import AWSGatewayRequestClient
+  company = Company("559071-2807", RequestClient=AWSGatewayRequestClient)
+
+  for company in iter_liquidated_companies(until="2019-06-01",request_client=AWSGatewayRequestClient()):
+    print(company)
+
 
 Developing
 ----------
@@ -59,6 +69,9 @@ To deploy a new version to PyPi:
 
 Changelog
 ---------
+
+- 0.7
+  - Add AWSGatewayRequestClient to enable request through rotating IP with AWS API Gateway
 
 - 0.6.1
   - Bug fix: Actually use header in requests.
