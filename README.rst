@@ -39,10 +39,11 @@ Use AWS API Gateway to rotate IP addresses
 
 .. code-block:: python3
 
-  from allabolag.request_client import AWSGatewayRequestClient
-  company = Company("559071-2807", RequestClient=AWSGatewayRequestClient)
+  from allabolag import AWSGatewayRequestClient
+  request_client = AWSGatewayRequestClient()
+  company = Company("559071-2807", request_client=request_client)
 
-  for company in iter_liquidated_companies(until="2019-06-01",request_client=AWSGatewayRequestClient()):
+  for company in iter_liquidated_companies(until="2019-06-01",request_client=request_client):
     print(company)
 
 

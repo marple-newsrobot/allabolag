@@ -15,7 +15,7 @@ class NoSuchCompany(Exception):
     """Raised when trying to access a copmany that doesn't exist"""
     pass
 
-default_request_client = RequestsRequestClient
+default_request_client = RequestsRequestClient()
 
 class Company():
     """Represents a single company.
@@ -25,9 +25,9 @@ class Company():
         print(c.data) # get all cleaned data
         print(c.raw_data) # get all uncleaned data
     """
-    def __init__(self, company_code, RequestClient=RequestsRequestClient, request_client_kwargs={}):
+    def __init__(self, company_code, request_client=default_request_client):
         self.company_code = company_code
-        self.request_client = RequestClient(**request_client_kwargs)
+        self.request_client = request_client
         self.url = f"https://www.allabolag.se/{company_code.replace('-', '')}"
         self._data = {}
         self._overview_data = {}

@@ -21,7 +21,8 @@ def test_rotating_ip_client_with_real_company():
 # ... existing code ...
 
 def test_company_with_rotating_ip_client():
-    company = Company("559071-2807", RequestClient=AWSGatewayRequestClient)
+    request_client = AWSGatewayRequestClient()
+    company = Company("559071-2807", request_client=request_client)
     assert company.data is not None
 
 def test_iter_liquidated_companies_with_rotating_ip_client():
