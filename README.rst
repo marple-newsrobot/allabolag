@@ -71,7 +71,10 @@ To deploy a new version to PyPi:
 Changelog
 ---------
 
-- 0.7
+- 0.7.1
+  - Update request client to use inited client, rather than class
+
+- 0.7.0
   - Add AWSGatewayRequestClient to enable request through rotating IP with AWS API Gateway
 
 - 0.6.1
