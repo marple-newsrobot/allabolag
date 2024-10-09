@@ -13,6 +13,13 @@ def test_company():
     assert(isinstance(data, dict))
     assert data["Översikt - Namn"] == "Journalism Robotics Stockholm AB"
 
+def test_koncern_company():
+    # https://www.allabolag.se/5567074199/
+    c = Company("556707-4199")
+    c.data
+    assert "Koncernredovisning" in c.data
+
+
 def test_invalid_company():
     with pytest.raises(NoSuchCompany):
         c = Company("559071-xxxx")

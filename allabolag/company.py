@@ -140,35 +140,50 @@ class Company():
     def accounts_data(self):
         """Collect data from "Bokslut & nyckeltal" """
         if self._accounts_data == {}:
+            def _parse_tables(div):
+                data_in_tables = {}
+                for table in accounting_div.select("table"):
+                    table_caption = table \
+                        .select_one("thead th.company-table__pager-button-cell").text.strip()
+                    if table_caption != u"Nyckeltal":
+                        table_data = _table_to_dict(table)
+                        table_data = _prefix_keys(table_data, table_caption)
+                        data_in_tables.update(table_data)
+                    else:
+                        # Nyckeltal behöver egen parsing
+                        # Hack Nyckeltalstabellen saknar år,
+                        # därför tar vi dem från föregående år
+                        years = [x[0] for x in list(table_data.values())[0]]
+
+                        table_data = {}
+                        for tr in table.select("tbody tr"):
+                            try:
+                                # Celler med
+                                key = tr.select_one("span.row-title > span.tooltip > span").text
+                            except AttributeError:
+                                # Celler utan tooltip
+                                key = tr.select_one("th").text.strip()
+
+                            values = [x.text.strip() for x in tr.select("td.data-pager__page")]
+                            table_data[key] = list(zip(years, values))
+
+                        table_data = _prefix_keys(table_data, "Nycketal")
+                        data_in_tables.update(table_data)
+                return data_in_tables
             data = {}
             s = self._get_soup("bokslut")
-            for table in s.select("table"):
-                table_caption = table \
-                    .select_one("thead th.company-table__pager-button-cell").text.strip()
-                if table_caption != u"Nyckeltal":
-                    table_data = _table_to_dict(table)
-                    table_data = _prefix_keys(table_data, table_caption)
-                    data.update(table_data)
-                else:
-                    # Nyckeltal behöver egen parsing
-                    # Hack Nyckeltalstabellen saknar år,
-                    # därför tar vi dem från föregående år
-                    years = [x[0] for x in list(table_data.values())[0]]
+            # Get the h2 with text "Bolagets redovisning"
+            
+            accounting_heading = s.find("h2", text="Bolagets redovisning")
+            if accounting_heading:
+                accounting_div = accounting_heading.find_parent("div", class_="box--document")
+                data.update(_parse_tables(accounting_div))
 
-                    table_data = {}
-                    for tr in table.select("tbody tr"):
-                        try:
-                            # Celler med
-                            key = tr.select_one("span.row-title > span.tooltip > span").text
-                        except AttributeError:
-                            # Celler utan tooltip
-                            key = tr.select_one("th").text.strip()
+            koncern_heading = s.find("h2", text="Koncernredovisning")
+            if koncern_heading:
+                koncern_div = koncern_heading.find_parent("div", class_="box--document")
+                data["Koncernredovisning"] = _parse_tables(koncern_div)
 
-                        values = [x.text.strip() for x in tr.select("td.data-pager__page")]
-                        table_data[key] = list(zip(years, values))
-
-                    table_data = _prefix_keys(table_data, "Nycketal")
-                    data.update(table_data)
             self._accounts_data = data
         return self._accounts_data
 
