@@ -71,6 +71,10 @@ To deploy a new version to PyPi:
 Changelog
 ---------
 
+- 0.8.0
+  - Handle Koncernredovisning
+  - Make RequestClient Python 3.8 compatible
+
 - 0.7.1
   - Update request client to use inited client, rather than class
 
