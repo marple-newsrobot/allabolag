@@ -99,13 +99,13 @@ class AWSGatewayRequestClient(BaseRequestClient):
 
     """
 
-    def __init__(self, aws_regions: list[str] = ["eu-north-1"], extra_headers: dict = {}):
+    def __init__(self, aws_regions: list = ["eu-north-1"], extra_headers: dict = {}):
         """
         Initialize the AWSGatewayRequestClient.        
 
         Args:
-            aws_regions (list[str]): List of AWS regions to use for IP rotation.
-                                     Defaults to ["eu-north-1"].
+            aws_regions (list): List of AWS regions to use for IP rotation.
+                                Defaults to ["eu-north-1"].
             extra_headers (dict): Additional headers to include in requests.
                                   Defaults to an empty dictionary.
 
@@ -149,4 +149,8 @@ class AWSGatewayRequestClient(BaseRequestClient):
         """
         Destructor method to ensure the API Gateway is shut down properly.
         """
-        self.gateway.shutdown()
+        try:
+            self.gateway.shutdown()
+        except Exception as e:
+            pass
+            print(f"Error shutting down API Gateway: {e}")
