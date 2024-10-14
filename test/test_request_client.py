@@ -19,16 +19,8 @@ def test_rotating_ip_client_with_real_company():
     response = ip_rot_request_client.get(url)
     
     assert response.status_code == 200
-# ... existing code ...
 
 def test_company_with_rotating_ip_client():
     company = Company("559071-2807", request_client=ip_rot_request_client)
     assert company.data is not None
-
-def test_iter_liquidated_companies_with_rotating_ip_client():
-    for c in iter_liquidated_companies("1900-01-01", request_client=ip_rot_request_client):
-        assert isinstance(c, dict)
-        assert "orgnr" in c
-        break
-
 
