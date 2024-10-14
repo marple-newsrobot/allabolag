@@ -8,7 +8,7 @@ from datetime import date
 
 name = "allabolag"
 
-short_version = "0.8.0"
+short_version = "0.9.0"
 long_version = short_version
 
 short_desc = """\
@@ -46,7 +46,7 @@ setup(
     license="MIT",
     packages=[name],
     zip_safe=False,
-    python_requires='>=2.7',
+    python_requires='>=3.8',
     install_requires=[
         "requests>=2.22.0",
         "beautifulsoup4>=4.7.1",

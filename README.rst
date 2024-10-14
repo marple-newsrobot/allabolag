@@ -71,6 +71,10 @@ To deploy a new version to PyPi:
 Changelog
 ---------
 
+- 0.9.0
+  - First version of an updated scraper that handles the new site structure, released in October 2024. Some data (such as "Händelser") is still missing. "Topplistor" is also not supported.
+  - NB: The data structure in `.raw_data` and `.data` is different than before.
+
 - 0.8.0
   - Handle Koncernredovisning
   - Make RequestClient Python 3.8 compatible
